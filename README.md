@@ -2,6 +2,8 @@
 
 ## Is there a difference?
 
+💡 [Tap here](https://new.oprosso.net/p/4cb31ec3f47a4596bc758ea1861fb624) **to leave your feedback on the project**. It's anonymous and will help our team make your educational experience better. We recommend completing the survey immediately after the project.
+
 ## Contents
 
 1. [Chapter I](#chapter-i) \
@@ -141,4 +143,3 @@ You should also add a proper title and logo to your project for the documentatio
 - [Writing Docstrings](https://realpython.com/documenting-python-code/).
 - [Sphinx Autodoc](https://www.sphinx-doc.org/en/master/usage/extensions/autodoc.html).
 
-**Please leave your feedback [here](https://forms.gle/YEzd846qsykVaShq8).**
