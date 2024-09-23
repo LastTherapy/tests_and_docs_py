@@ -9,6 +9,7 @@ import pytest
 from io import StringIO
 import sys
 
+
 class TestQuizMaker(unittest.TestCase):
 
     @patch('builtins.input', side_effect=['1', '14', '80', '3', '4'])  # Подменяем ввод для ответа и метрики

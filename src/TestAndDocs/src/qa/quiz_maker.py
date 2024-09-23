@@ -7,15 +7,35 @@ from src.qa.metrics import Metric, get_metrics_from_user_input
 
 @dataclass
 class FullQuestion:
+    """
+    Represents a question, its possible answers, and a user's associated metric.
+
+    Attributes:
+        question (Question): The question object.
+        answers (List[Answer]): The list of possible answers for the question.
+        metric (Metric): The metric data collected from the user.
+    """
     question: Question
     answers: List[Answer]
     metric: Metric
 
 
-
-
 def is_replicant(metric: Metric) -> bool:
-    # Примерные границы для человека
+    """
+    Determines if the given metric indicates that the user is a replicant.
+
+    Args:
+        metric (Metric): The user's metric data.
+
+    Returns:
+        bool: True if the metric data indicates the user is a replicant, otherwise False.
+
+    The criteria used are:
+    - Respiration must be between 12 and 20.
+    - Heart rate must be between 60 and 100.
+    - Blushing level must be between 1 and 3.
+    - Pupillary dilation must be between 1 and 5 mm.
+    """
     if not (12 <= metric.respiration <= 20):
         return True
     if not (60 <= metric.heart_rate <= 100):
@@ -28,15 +48,25 @@ def is_replicant(metric: Metric) -> bool:
 
 
 def determine_result(results: List[FullQuestion]) -> str:
+    """
+    Determines whether the user is classified as a replicant or a human based on their metrics.
+
+    Args:
+        results (List[FullQuestion]): A list of FullQuestion objects, each containing a question,
+                                      a set of possible answers, and the user's metric data.
+
+    Returns:
+        str: "Репликант" if the user is classified as a replicant, otherwise "Человек".
+
+    The decision is based on whether more than half of the provided metrics fall outside the human range.
+    """
     replicant_score = 0
     total_questions = len(results)
 
-    # Считаем количество вопросов, где метрики указывают на репликанта
     for result in results:
         if is_replicant(result.metric):
             replicant_score += 1
 
-    # Если больше половины метрик выходят за рамки, считаем репликантом
     if replicant_score > total_questions / 2:
         return "Репликант"
     else:
@@ -44,6 +74,15 @@ def determine_result(results: List[FullQuestion]) -> str:
 
 
 def make_quiz():
+    """
+    Runs a quiz where the user answers questions and provides associated metrics.
+
+    The quiz consists of:
+    1. Displaying each question and possible answers.
+    2. Prompting the user to select an answer.
+    3. Collecting biological metrics from the user.
+    4. Determining whether the user is classified as a replicant or a human based on their metrics.
+    """
     results: List[FullQuestion] = []
     questions = get_questions()
 
@@ -54,7 +93,7 @@ def make_quiz():
         # Ввод номера ответа
         while True:
             for i, a in enumerate(answers, 1):
-                print(f"{i}. {a}")
+                print(f"{a}")
 
             try:
                 selected_answer = int(input("Enter number of answer: ")) - 1
